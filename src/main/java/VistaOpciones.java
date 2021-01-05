@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class VistaOpciones
 {
@@ -43,6 +44,12 @@ public class VistaOpciones
         //Design
         inicio.setAlignment(Pos.CENTER);
         inicio.setSpacing(12);
+
+        //Accion boton cerrar
+        exit.setOnMouseClicked((ext) -> {
+            Stage stage = (Stage) exit.getScene().getWindow();
+            stage.close();
+        });
     }
     
     public VBox getInicio()
