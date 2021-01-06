@@ -1,6 +1,11 @@
 package Buttons;
 
 import Clases.Directory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,6 +26,9 @@ public class Register {
     private HBox numbers;
     private HBox mainstreets;
     private HBox streets;
+    
+    ConexionBD con = new ConexionBD();
+    Connection cn = con.conector();
 
     public Register()
     {
@@ -54,10 +62,18 @@ public class Register {
             Stage stage = (Stage) exit.getScene().getWindow();
             stage.close();
         });
-        //Regist Button Action     
-
-    }       
-    
+        //Regist Button Action
+        regist.setOnMouseClicked((reg) -> {
+            try {
+                PreparedStatement pps = cn.prepareStatement("INSERT INTO cliente(cedula,nombre,apellido,email,productoFavorito,direccion) VALUES(?,?,?,?,?,?)");
+                //pps.setString(1, );
+               
+            } catch (SQLException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });     
+        
+    }
     public VBox getRegister()
     {
         return voki;
