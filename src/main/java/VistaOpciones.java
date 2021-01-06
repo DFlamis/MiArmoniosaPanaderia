@@ -12,10 +12,38 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class VistaOpciones
 {
     public VBox voki;
-
+    //
+    private static final String usuario = "root";
+    //Cambiar clave dependiendo de quien lo este usando
+    private static final String clave = "";
+    private static final String url = "jdbc:mysql://localhost:3306/mi_armoniosa_panaderia";
+    private static Connection con;
+    Statement stmt;
+    
+    public void conexion(){
+        con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(url, usuario, clave);
+            if (con != null){
+                System.out.println("Se hizo la conexion exitosa");
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+//
     public VistaOpciones()
     {
         voki = new VBox();
@@ -38,10 +66,11 @@ public class VistaOpciones
         //Buttons
         Button client = new Button("Cliente");
         Button baker = new Button("Pastelero");
+        Button conexion = new Button("Conectar con base de datos");
         Button exit = new Button("Salir");
 
         //Add all in the box
-        voki.getChildren().addAll(img, head, space, subHead, space2, client, baker, exit);
+        voki.getChildren().addAll(img, head, space, subHead, space2, client, baker, conexion, exit);
 
         //Design
         voki.setAlignment(Pos.CENTER);
@@ -73,8 +102,12 @@ public class VistaOpciones
             NewBaker.setTitle("Mi Armoniosa Panaderia - Pastelero");
             NewBaker.getIcons().add(new Image("file:"+Directory.RESOURCE_FOLDER+"/LogoNoBackground.png"));
             NewBaker.setScene(scen);
-            NewBaker.show();    
-
+            NewBaker.show();  
+        });
+            
+        // Conexion Button Action
+        conexion.setOnMouseClicked((conex) -> {
+            conexion();
         });
     }
     

@@ -54,7 +54,7 @@ public class Register {
             Stage stage = (Stage) exit.getScene().getWindow();
             stage.close();
         });
-        //Regist Button Action
+        //Regist Button Action     
 
     }       
     
