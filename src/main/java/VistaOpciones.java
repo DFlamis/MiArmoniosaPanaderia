@@ -1,22 +1,24 @@
 
+import Buttons.Baker;
+import Buttons.Client;
 import Clases.Directory;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class VistaOpciones
 {
-    public VBox inicio;
-    public HBox backup;
+    public VBox voki;
 
     public VistaOpciones()
     {
-        inicio = new VBox();
+        voki = new VBox();
 
         //Add logo at the top
         ImageView img = new ImageView("file:"+Directory.RESOURCE_FOLDER+"/LogoNoBackground.png");
@@ -39,21 +41,45 @@ public class VistaOpciones
         Button exit = new Button("Salir");
 
         //Add all in the box
-        inicio.getChildren().addAll(img, head, space, subHead, space2, client, baker, exit);
+        voki.getChildren().addAll(img, head, space, subHead, space2, client, baker, exit);
 
         //Design
-        inicio.setAlignment(Pos.CENTER);
-        inicio.setSpacing(12);
+        voki.setAlignment(Pos.CENTER);
+        voki.setSpacing(12);
 
-        //Accion boton cerrar
+        /*--------------------------Bottons actions--------------------------*/
+        //Exit Button Action
         exit.setOnMouseClicked((ext) -> {
             Stage stage = (Stage) exit.getScene().getWindow();
             stage.close();
+        });
+
+        //Client Button Action
+        client.setOnMouseClicked((log) -> {
+            Client cl = new Client();
+            Scene sce = new Scene(cl.getClient(),600,600);
+            Stage newClient = new Stage();
+            newClient.setTitle("Mi Armoniosa Panaderia - Cliente");
+            newClient.getIcons().add(new Image("file:"+Directory.RESOURCE_FOLDER+"/LogoNoBackground.png"));
+            newClient.setScene(sce);
+            newClient.show();    
+        });
+
+        //Baker Button Action
+        baker.setOnMouseClicked((bak) -> {
+            Baker bk = new Baker();
+            Scene scen = new Scene(bk.getBaker(),600,600);
+            Stage NewBaker = new Stage();
+            NewBaker.setTitle("Mi Armoniosa Panaderia - Pastelero");
+            NewBaker.getIcons().add(new Image("file:"+Directory.RESOURCE_FOLDER+"/LogoNoBackground.png"));
+            NewBaker.setScene(scen);
+            NewBaker.show();    
+
         });
     }
     
     public VBox getInicio()
     {
-        return inicio;
+        return voki;
     }
 }
